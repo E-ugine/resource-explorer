@@ -24,7 +24,7 @@ Live app: (https://resource-explorer-zeta.vercel.app/)
 
 Clone and Run the Project
 # 1. Clone the repository
-git clone <HTTPS URL>
+git clone https://github.com/E-ugine/resource-explorer.git
 
 # 2. Move into the project directory
 cd resource-explorer
