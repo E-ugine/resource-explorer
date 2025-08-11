@@ -5,6 +5,8 @@ A polished React + Vite + Tailwind + shadcn UI single-page app to explore Rick a
 ## Dataset
 - Rick and Morty API: https://rickandmortyapi.com/
 
+Live app: (https://resource-explorer-zeta.vercel.app/)
+
 ## Features
 - List view with server pagination
 - Debounced search (URL-synced)
@@ -12,17 +14,26 @@ A polished React + Vite + Tailwind + shadcn UI single-page app to explore Rick a
 - Sorting: name, created (URL-synced)
 - Favorites: toggle from list/detail, persisted locally; filter to show favorites
 - Detail view at /items/:id with rich info + JSON-LD
-- Error states with retry, skeleton loaders
-- Cancel in-flight requests (React Query with fetch AbortController)
-- Nice-to-haves implemented:
-  - React Query caching + background refetch
-  - Code-splitting for detail route
-  - Theme toggle with persistent preference
+- 
 
-## Getting started
-1. npm i
-2. npm run dev
-3. Visit http://localhost:8080
+# Getting Started Locally
+
+✅ Prerequisites
+Node.js + npm installed
+Git installed and configured
+
+Clone and Run the Project
+# 1. Clone the repository
+git clone <HTTPS URL>
+
+# 2. Move into the project directory
+cd resource-explorer
+
+# 3. Install dependencies
+npm install
+
+# 4. Start the development server
+npm run dev
 
 ## URL as source of truth
 All state (q, status, gender, sort, fav, page) is encoded in the URL so it’s shareable and reload-safe.
