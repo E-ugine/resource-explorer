@@ -8,6 +8,7 @@ import { useFavorites } from "@/hooks/use-favorites";
 import SearchFilterBar from "@/components/SearchFilterBar";
 import CharacterCard from "@/components/CharacterCard";
 import { useTheme } from "next-themes";
+import { Sun, Moon } from "lucide-react";
 
 import type { Character, CharactersResponse } from "@/types/rm";
 
@@ -82,8 +83,10 @@ const Index = () => {
   const [urlState, setURLState] = useURLState();
   const fav = useFavorites();
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     document.title = "Resource Explorer — Rick and Morty";
   }, []);
 
@@ -132,11 +135,17 @@ const Index = () => {
 
   const totalPages = query.data?.info.pages ?? 1;
 
+  if (!mounted) {
+    return null; // or return a loading skeleton if preferred
+  }
+
   return (
     <div className="min-h-screen">
       <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto py-4 flex items-center justify-between">
-          <h1 className="text-xl sm:text-2xl font-semibold">Resource Explorer</h1>
+          <Link to="/" className="text-xl sm:text-2xl font-semibold hover:underline">
+            Resource Explorer
+          </Link>
           <div className="flex items-center gap-3">
             <Button
               variant="secondary"
@@ -146,9 +155,15 @@ const Index = () => {
             </Button>
             <Button
               variant="outline"
+              size="icon"
+              aria-label="Toggle theme"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
-              Toggle theme
+              {theme === "dark" ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
             </Button>
             <Link to="#main" className="sr-only focus:not-sr-only">
               Skip to content
@@ -194,7 +209,7 @@ const Index = () => {
             </div>
           ) : query.isError ? (
             <Card className="p-6 text-center space-y-3">
-              <p>We couldn’t load characters. Please try again.</p>
+              <p>We couldn't load characters. Please try again.</p>
               <Button onClick={() => query.refetch()}>Retry</Button>
             </Card>
           ) : sortedFiltered.length === 0 ? (
