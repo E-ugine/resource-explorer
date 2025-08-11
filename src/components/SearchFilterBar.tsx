@@ -38,12 +38,12 @@ export default function SearchFilterBar({ q, status, gender, sort, fav, onChange
       </div>
       <div className="space-y-2">
         <Label>Status</Label>
-        <Select value={status} onValueChange={(v) => onChange({ status: v })}>
+        <Select value={status || "any"} onValueChange={(v) => onChange({ status: v === "any" ? "" : v })}>
           <SelectTrigger>
             <SelectValue placeholder="Any" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="">Any</SelectItem>
+          <SelectContent className="z-50 bg-popover">
+            <SelectItem value="any">Any</SelectItem>
             <SelectItem value="alive">Alive</SelectItem>
             <SelectItem value="dead">Dead</SelectItem>
             <SelectItem value="unknown">Unknown</SelectItem>
@@ -52,12 +52,12 @@ export default function SearchFilterBar({ q, status, gender, sort, fav, onChange
       </div>
       <div className="space-y-2">
         <Label>Gender</Label>
-        <Select value={gender} onValueChange={(v) => onChange({ gender: v })}>
+        <Select value={gender || "any"} onValueChange={(v) => onChange({ gender: v === "any" ? "" : v })}>
           <SelectTrigger>
             <SelectValue placeholder="Any" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="">Any</SelectItem>
+          <SelectContent className="z-50 bg-popover">
+            <SelectItem value="any">Any</SelectItem>
             <SelectItem value="female">Female</SelectItem>
             <SelectItem value="male">Male</SelectItem>
             <SelectItem value="genderless">Genderless</SelectItem>
@@ -71,7 +71,7 @@ export default function SearchFilterBar({ q, status, gender, sort, fav, onChange
           <SelectTrigger>
             <SelectValue placeholder="Sort" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="z-50 bg-popover">
             <SelectItem value="name_asc">Name A→Z</SelectItem>
             <SelectItem value="name_desc">Name Z→A</SelectItem>
             <SelectItem value="created_desc">Newest</SelectItem>
