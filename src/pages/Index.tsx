@@ -143,7 +143,7 @@ const Index = () => {
     <div className="min-h-screen">
       <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto py-4 flex items-center justify-between">
-          <Link to="/" className="text-xl sm:text-2xl font-semibold hover:underline">
+          <Link to="/" className="text-xl sm:text-2xl font-semibold">
             Resource Explorer
           </Link>
           <div className="flex items-center gap-3">
