@@ -19,8 +19,8 @@ Live app: (https://resource-explorer-zeta.vercel.app/)
 # Getting Started Locally
 
 ✅ Prerequisites
-Node.js + npm installed
-Git installed and configured
+-Node.js + npm installed
+-Git installed and configured
 
 Clone and Run the Project
 # 1. Clone the repository
