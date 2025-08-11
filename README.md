@@ -33,7 +33,7 @@ cd resource-explorer
 npm install
 
 # 4. Start the development server
-npm run dev
+npm run dev then 
 access the app at port 3000
 
 ## URL as source of truth
