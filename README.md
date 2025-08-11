@@ -1,73 +1,48 @@
-# Welcome to your Lovable project
+# Resource Explorer (Rick and Morty)
 
-## Project info
+A polished React + Vite + Tailwind + shadcn UI single-page app to explore Rick and Morty characters with search, filters, sorting, pagination, detail view, and favorites persisted to localStorage.
 
-**URL**: https://lovable.dev/projects/1f68cd4b-930d-41eb-9031-aa5e94b2fe92
+## Dataset
+- Rick and Morty API: https://rickandmortyapi.com/
 
-## How can I edit this code?
+## Features
+- List view with server pagination
+- Debounced search (URL-synced)
+- Filters: status, gender (URL-synced)
+- Sorting: name, created (URL-synced)
+- Favorites: toggle from list/detail, persisted locally; filter to show favorites
+- Detail view at /items/:id with rich info + JSON-LD
+- Error states with retry, skeleton loaders
+- Cancel in-flight requests (React Query with fetch AbortController)
+- Nice-to-haves implemented:
+  - React Query caching + background refetch
+  - Code-splitting for detail route
+  - Theme toggle with persistent preference
 
-There are several ways of editing your application.
+## Getting started
+1. npm i
+2. npm run dev
+3. Visit http://localhost:8080
 
-**Use Lovable**
+## URL as source of truth
+All state (q, status, gender, sort, fav, page) is encoded in the URL so it’s shareable and reload-safe.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/1f68cd4b-930d-41eb-9031-aa5e94b2fe92) and start prompting.
+## Trade-offs
+- Favorites-only view filters current page results for simplicity. Could be enhanced to fetch by IDs to compose a full favorites-only list.
+- Sorting is client-side for responsiveness.
 
-Changes made via Lovable will be committed automatically to this repo.
+## Tech
+- React, Vite, TypeScript
+- Tailwind CSS + shadcn
+- TanStack Query
+- next-themes for theming
 
-**Use your preferred IDE**
+## Scripts
+- dev: start dev server
+- build: production build
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/1f68cd4b-930d-41eb-9031-aa5e94b2fe92) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## Accessibility & SEO
+- Semantic markup, visible focus states
+- Single H1 per page
+- Meta tags and canonical link
+- JSON-LD on detail pages
