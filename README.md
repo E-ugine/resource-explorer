@@ -34,6 +34,7 @@ npm install
 
 # 4. Start the development server
 npm run dev
+access the app at port 3000
 
 ## URL as source of truth
 All state (q, status, gender, sort, fav, page) is encoded in the URL so it’s shareable and reload-safe.
