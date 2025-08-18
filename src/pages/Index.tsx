@@ -22,9 +22,9 @@ function useURLState() {
       q: params.get("q") ?? "",
       status: params.get("status") ?? "",
       gender: params.get("gender") ?? "",
-      sort: params.get("sort") ?? "name_asc", // name_asc | name_desc | created_asc | created_desc
+      sort: params.get("sort") ?? "name_asc",
       page: Math.max(1, parseInt(params.get("page") || "1", 10) || 1),
-      fav: params.get("fav") === "1", // favorites only
+      fav: params.get("fav") === "1",
     };
   }, [params]);
 
@@ -91,13 +91,7 @@ const Index = () => {
   }, []);
 
   const query = useQuery({
-    queryKey: [
-      "characters",
-      urlState.page,
-      urlState.q,
-      urlState.status,
-      urlState.gender,
-    ],
+    queryKey: ["characters", urlState.page, urlState.q, urlState.status, urlState.gender],
     queryFn: ({ signal }) =>
       fetchCharacters({
         page: urlState.page,
@@ -136,7 +130,7 @@ const Index = () => {
   const totalPages = query.data?.info.pages ?? 1;
 
   if (!mounted) {
-    return null; // or return a loading skeleton if preferred
+    return null;
   }
 
   return (
@@ -159,11 +153,7 @@ const Index = () => {
               aria-label="Toggle theme"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
-              {theme === "dark" ? (
-                <Sun className="h-4 w-4" />
-              ) : (
-                <Moon className="h-4 w-4" />
-              )}
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
             <Link to="#main" className="sr-only focus:not-sr-only">
               Skip to content
@@ -174,9 +164,7 @@ const Index = () => {
 
       <main id="main" className="container mx-auto py-6 space-y-6">
         <section aria-labelledby="controls">
-          <h2 id="controls" className="sr-only">
-            Search and Filters
-          </h2>
+          <h2 id="controls" className="sr-only">Search and Filters</h2>
           <SearchFilterBar
             q={urlState.q}
             status={urlState.status}
@@ -188,9 +176,7 @@ const Index = () => {
         </section>
 
         <section aria-labelledby="results">
-          <h2 id="results" className="sr-only">
-            Results
-          </h2>
+          <h2 id="results" className="sr-only">Results</h2>
 
           {query.isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -230,7 +216,9 @@ const Index = () => {
           )}
         </section>
 
-        <nav className="flex items-center justify-center gap-2" aria-label="Pagination">
+        {/* 🔥 New Pagination Component */}
+        <nav className="flex items-center justify-center gap-2 mt-6" aria-label="Pagination">
+          {/* Previous */}
           <Button
             variant="secondary"
             onClick={() => setURLState({ page: Math.max(1, urlState.page - 1) })}
@@ -238,9 +226,38 @@ const Index = () => {
           >
             Previous
           </Button>
-          <span className="text-sm text-muted-foreground">
-            Page {urlState.page} of {totalPages}
-          </span>
+
+          {/* Page numbers with ellipses */}
+         {Array.from({ length: totalPages }, (_, i) => i + 1)
+  .filter((page) => {
+    return (
+      page === 1 ||
+      page === totalPages ||
+      (page >= urlState.page - 2 && page <= urlState.page + 2)
+    );
+  })
+  .reduce<(number | string)[]>((acc, page, i, arr) => {
+    if (i > 0 && arr[i - 1] !== page - 1) acc.push("...");
+    acc.push(page);
+    return acc;
+  }, [])
+  .map((page, i) =>
+    typeof page === "string" ? (
+      <span key={i} className="px-2 text-muted-foreground">…</span>
+    ) : (
+      <Button
+        key={page}
+        variant={page === urlState.page ? "default" : "secondary"}
+        onClick={() => setURLState({ page })} // ✅ now always a number
+        disabled={query.isLoading}
+      >
+        {page}
+      </Button>
+    )
+  )}
+
+
+          {/* Next */}
           <Button
             variant="secondary"
             onClick={() => setURLState({ page: Math.min(totalPages, urlState.page + 1) })}
